@@ -11,4 +11,5 @@ struct nave{
 }
 
 // função de definição de prioridade das naves 
+
 typedef struct nave 
