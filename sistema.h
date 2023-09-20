@@ -7,11 +7,13 @@ struct passageiro{
     int doente; // atribui 1 caso esteja e 0 para indicar saudavel
 };
 
-// lista de passageiros?
-
 // armazena os passageiros de cada nave (implementar uma função para definir uma lista de passageiros para cada nave para assim identificar clandestinos???)
-struct passageiros{
-    //
+struct tripulacao{
+    struct passageiro capitao;
+    struct passageiro navegador;
+    struct passageiro tripulante1;
+    struct passageiro tripulante2;
+    struct passageiro tripulante3;
 };
 
 // compartimentos de recursos de cada nave (armazena três recursos aleatorios)
@@ -24,9 +26,9 @@ struct recursosNave{
 // lista dos 100 recursos disponiveis na galaxia (utilizar uma funçao para adiciona-los aleatoriamente aos compartimentos)
 char recursosDoUniverso[];
 
-typedef struct nave *Heap;
-
-Heap *criar();
-
-void geraPrioridade(struct passageiro p, struct recursosNave r);
-int inserirNaFila(struct passageiro p, struct recursosNave r);
+void constroiHeap(struct nave n, int t);
+void geraPrioridade();
+int inserirNaFila();
+void subir(struct nave n, int i);
+void descer(struct nave n, int i, int t);
+// void heapSort(struct nave n, int t);
