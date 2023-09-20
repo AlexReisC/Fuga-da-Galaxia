@@ -8,7 +8,11 @@ com individuos necessitando de tratamento tem prioridade;
 - Cada passageiro tem um nome (char vet), idade (int), planeta de origem (char vet) e id unico (int);
 - Sistema de verificação de dados das espaçonaves
 - Clandestinos e doenças a bordo podem redefinir a prioridade para baixo ou cima
-- Cada es nova na fila deve ter uma prioridade aleatoria
+- Cada espaçonave nova na fila deve ter uma prioridade aleatoria
+- Existe uma lista de 100 recursos
+- Cada nave carrega três compartimentos de recursos
+- Sempre que três naves com os mesmos recursos mas permutados em ordens diferentes elas passam na passagem ao mesmo tempo
+- Analise da nave para saber se tal ordem dos recursos ja apareceu antes
 */
 
 #include <stdio.h>
