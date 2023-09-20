@@ -6,7 +6,8 @@ struct nave{
     int prioridade;
     struct passageiros;
     struct recursos;
-    struct nave *proximo;
+    struct nave *filho_i;
+    struct nave *filho_2i;
 }
 
 typedef struct nave 
