@@ -23,5 +23,7 @@ com individuos necessitando de tratamento tem prioridade;
 int main()
 {
     
+    // Representação visual da fila de naves
+
     return 0;
 }
