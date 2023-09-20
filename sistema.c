@@ -5,9 +5,10 @@
 struct nave{
     int prioridade;
     struct passageiros;
-    struct recursos;
-    struct nave *filho_i;
-    struct nave *filho_2i;
+    struct compartimentosDerecursos;
+    struct nave *filhoEsquerdo; // filho 2i
+    struct nave *filhoDireito; // filho 2i+1
 }
 
+// função de definição de prioridade das naves 
 typedef struct nave 
