@@ -1,16 +1,59 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include "sistema.h"
 
-struct nave{
-    int prioridade;
-    struct tripulacao;
-    struct compartimentosDeRecursos;
-    struct nave *filhoEsquerdo; // filho 2i
-    struct nave *filhoDireito; // filho 2i+1
+struct fila{
+	int qtd;
+	struct nave naves[MAX];
 };
 
-typedef struct nave Nave;
+Fila* criar(){
+	Fila *fi = (Fila*)malloc(sizeof(Fila));
+	if(fi != NULL){
+		fi->qtd = 0;
+	}
+	return fi;
+}
 
-// funÃ§Ã£o de definiÃ§Ã£o de prioridade das naves 
+// Função que aumenta a prioridade de uma espaçonave
+void subir(int i, int x){
+	fila.naves[i].prioridade = x;
+	int j = i/2;
+	if(x > fila.naves[j].prioridade && j >= 0){ // troca de posições na fila
+		struct nave aux = fila.naves[j]; 
+		fila.naves[j] = fila.naves[i]; 
+		fila.naves[i] = aux;
+		subir(int j, int x);
+	}
+}
 
+// Função que insere uma nave na fila
+void inserir(struct nave nova, int x){
+	fila.naves[qtd] = nova;
+	fila.qtd = fila.qtd + 1;
+	subir(i, x);
+}
+
+// Função que diminui a prioridade de uma nave
+void descer(int i, int x){
+	fila.naves[i].prioridade = x;
+	int j = 2*i+1;
+	if(j <= fila.qtd){
+		if(x < fila.naves[j].prioridade){
+			if(j < n){
+				if(fila.naves[j].prioridade < fila.naves[j+1].prioridade){
+					j = j+1;
+				}
+			}
+			struct nave aux = fila.naves[i];
+			fila.naves[i] = fila.naves[j];
+			fila.naves[j] = aux;
+			descer(j, x);
+		}
+	}
+}
+
+void remover(){
+	fila.naves[0] = fila.naves[qtd-1];
+	fila.qtd = fila.qtd - 1;
+	descer(0,fila.naves[0].prioridade);
+}
