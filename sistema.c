@@ -14,11 +14,11 @@ Fila* criar(){
 	return fi;
 }
 
-// Função que aumenta a prioridade de uma espaçonave
+// Função que aumenta a prioridade de uma espaconave
 void subir(int i, int x){
 	fila.naves[i].prioridade = x;
 	int j = i/2;
-	if(x > fila.naves[j].prioridade && j >= 0){ // troca de posições na fila
+	if(x > fila.naves[j].prioridade && j >= 0){ // troca de posicoes na fila
 		struct nave aux = fila.naves[j]; 
 		fila.naves[j] = fila.naves[i]; 
 		fila.naves[i] = aux;
@@ -57,3 +57,16 @@ void remover(){
 	fila.qtd = fila.qtd - 1;
 	descer(0,fila.naves[0].prioridade);
 }
+
+int geraPrioridade(){
+	
+}
+
+int verificaRecursos(){
+	
+}
+
+int validaDados(){
+	
+}
+

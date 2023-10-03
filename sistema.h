@@ -8,7 +8,6 @@ struct pessoa{
     char planeta[20];
     int id;
     int doente; // atribui 1 caso esteja e 0 para indicar saudavel
-    
 };
 
 // armazena os passageiros de cada nave
@@ -32,3 +31,6 @@ int inserir(struct nave, int x);
 void subir(int i, int x);
 void descer(int i, int x);
 void remover();
+int geraPrioridade();
+int validaDados();
+int verificaRecursos();
