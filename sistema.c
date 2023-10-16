@@ -6,14 +6,6 @@ struct fila{
 	struct nave naves[MAX];
 };
 
-Fila* criar(){
-	Fila *fi = (Fila*)malloc(sizeof(Fila));
-	if(fi != NULL){
-		fi->qtd = 0;
-	}
-	return fi;
-}
-
 // Função que aumenta a prioridade de uma espaconave
 void subir(int i, int x){
 	fila.naves[i].prioridade = x;
@@ -58,7 +50,7 @@ void remover(){
 	descer(0,fila.naves[0].prioridade);
 }
 
-int geraPrioridade(){
+int geraPrioridade(struct nave nova){
 	
 }
 

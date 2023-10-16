@@ -1,4 +1,4 @@
-#define MAX 100
+#define MAX 50
 #define MAX_P 5
 
 // dados individuais do passageiro
@@ -31,6 +31,6 @@ int inserir(struct nave, int x);
 void subir(int i, int x);
 void descer(int i, int x);
 void remover();
-int geraPrioridade();
+int geraPrioridade(struct nave);
 int validaDados();
 int verificaRecursos();
