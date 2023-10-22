@@ -5,141 +5,216 @@
 #include "sistema.h"
 
 // Atribui nome aos passageiros
-void atribuiNomes(FILE *arquivo, struct nave *nova){
+void atribuiNomes(FILE *arquivo, FILE *arquivo2, struct nave *nova){
 	int i = 0;
-	int j = 0;
-	char linha[9];
-	//char string[] = "Nomes: ";
+	char nomes[] = "Nomes: ";
+	char linha[1000];
+	int posicao;
+	char dados[9];
 	
-	fseek(arquivo, 8, SEEK_SET);
-	
-	while(i < MAX_P){
-		char *nome = fgets(linha, 9, arquivo);
-		if(nome == NULL){
-			printf("Erro na leitura do arquivo.");
-		} else{
-//			if(strcmp(texto, palavra) != 0){
-				strcpy(nova->passageiros[i].nome, linha);
-				j++;
-//			}
-			fseek(arquivo, 1, SEEK_CUR);
-			i++;			
-		}
-	}
-}
-
-// Atribui o planeta do passageiro
-void atribuiPlanetas(FILE *arquivo, struct nave *nova){	
-	int i = 0;
-	int j = 0;
-	char texto[9];
-	char palavra[] = "Planetas: ";
-	char palavra2[] = "Idades: ";
-	
-	fseek(arquivo, 469, SEEK_SET);
-	char *string = fgets(texto, 9, arquivo);
-	if(string == NULL){
-		printf("Erro na leitura do arquivo.");
+	arquivo = fopen("informacoes.txt", "r");
+	if(arquivo == NULL) {
+		printf("Ocorreu erro na abertura do arquivo.");
 	}
 	
-	while(i < MAX_P){
-		if(strcmp(texto, palavra) != 0){
-			strcpy(nova->passageiros[j].planeta, texto);
-			j++;
+	// Selecionar os dados para inserir na struct
+	char *result;
+	while(fgets(linha, sizeof(linha), arquivo) != NULL){
+		result = strstr(linha, nomes);
+		if(result != NULL){
+			posicao = result - linha;
 		}
-		if(strstr(texto, palavra2)){
-			break;
-		}
-		fseek(arquivo, 1, SEEK_CUR);
-		i++;
 	}
-}
-
-void atribuiIdade(FILE *arquivo, struct nave *nova){
-	int i = 0;
-	int j = 0;
-	char texto[9];
-	char palavra[] = "Idades: ";
-	char palavra2[] = "Id: ";
 	
-	fseek(arquivo, 8, SEEK_SET);
-	
+	fseek(arquivo, posicao+7, SEEK_SET);
 	while(i < MAX_P){
-		char *string = fgets(texto, 9, arquivo);
+		char *string = fgets(dados, 9, arquivo);
 		if(string == NULL){
-			printf("Erro na leitura do arquivo.");
+			printf("Erro na leitura.\n");
 		}
-		if(strcmp(texto, palavra) != 0){
-			int num = atoi(texto);
-			nova->passageiros[j].idade = num;
-			j++;
-		}
-		if(strstr(texto, palavra2)){
-			break;
-		}
+		strcpy(nova->passageiros[i].nome, dados);
 		fseek(arquivo, 1, SEEK_CUR);
 		i++;
 	}
+	// Inseri-los no arquivo fila.txt
+	
+	// Remove-los no arquivo informacoes.txt
+	fclose(arquivo);
 }
 
-void atribuiId(FILE *arquivo, struct nave *nova){
+// Atribui o planeta de origem dos passageiros
+void atribuiPlanetas(FILE *arquivo, FILE *arquivo2, struct nave *nova){
 	int i = 0;
-	int j = 0;
-	char texto[9];
-	char palavra[] = "Id: ";
-	char palavra2[] = "Doentes: ";
+	char planetas[] = "Planetas: ";
+	char linha[1000];
+	int posicao;
+	char dados[9];
 	
-	//strstr()
-	
-	fseek(arquivo, 8, SEEK_SET);
-	char *string = fgets(texto, 9, arquivo);
-	if(string == NULL){
-		printf("Erro na leitura do arquivo.");
+	arquivo = fopen("informacoes.txt", "r");
+	if(arquivo == NULL) {
+		printf("Ocorreu erro na abertura do arquivo.");
 	}
 	
+	// Selecionar os dados para inserir na struct
+	char *result;
+	while(fgets(linha, sizeof(linha), arquivo) != NULL){
+		result = strstr(linha, planetas);
+		if(result != NULL){
+			posicao = result - linha;
+		}
+	}
+	
+	fseek(arquivo, posicao+10, SEEK_SET);
 	while(i < MAX_P){
-		if(strcmp(texto, palavra) != 0){
-			int num = atoi(texto);
-			nova->passageiros[j].id = num;
-			j++;
+		char *string = fgets(dados, 9, arquivo);
+		if(string == NULL){
+			printf("Erro na leitura.\n");
 		}
-		if(strstr(texto, palavra2)){
-			break;
-		}
+		strcpy(nova->passageiros[i].planeta, dados);
 		fseek(arquivo, 1, SEEK_CUR);
 		i++;
 	}
+	// Inseri-los no arquivo fila.txt
+	
+	// Remove-los no arquivo informacoes.txt
+	fclose(arquivo);
+}
+
+void atribuiIdades(FILE *arquivo, FILE *arquivo2, struct nave *nova){
+	int i = 0;
+	char idades[] = "Idades: ";
+	char linha[1000];
+	int posicao;
+	char dados[1];
+	
+	arquivo = fopen("informacoes.txt", "r");
+	if(arquivo == NULL) {
+		printf("Ocorreu erro na abertura do arquivo.");
+	}
+	
+	// Selecionar os dados para inserir na struct
+	char *result;
+	while(fgets(linha, sizeof(linha), arquivo) != NULL){
+		result = strstr(linha, idades);
+		if(result != NULL){
+			posicao = result - linha;
+		}
+	}
+	
+	fseek(arquivo, posicao+8, SEEK_SET);
+	while(i < MAX_P){
+		char *string = fgets(dados, 3, arquivo);
+		if(string == NULL){
+			printf("Erro na leitura.\n");
+		}
+		int num = atoi(dados);
+		nova->passageiros[i].idade = num;
+		fseek(arquivo, 1, SEEK_CUR);
+		i++;
+	}
+	// Inseri-los no arquivo fila.txt
+	
+	// Remove-los no arquivo informacoes.txt
+	fclose(arquivo);
+}
+
+void atribuiIds(FILE *arquivo, FILE *arquivo2, struct nave *nova){
+	int i = 0;
+	char ids[] = "Ids: ";
+	char linha[1000];
+	int posicao;
+	char dados[1];
+	
+	arquivo = fopen("informacoes.txt", "r");
+	if(arquivo == NULL) {
+		printf("Ocorreu erro na abertura do arquivo.");
+	}
+	
+	// Selecionar os dados para inserir na struct
+	char *result;
+	while(fgets(linha, sizeof(linha), arquivo) != NULL){
+		result = strstr(linha, ids);
+		if(result != NULL){
+			posicao = result - linha;
+		}
+	}
+	
+	fseek(arquivo, posicao+5, SEEK_SET);
+	while(i < MAX_P){
+		char *string = fgets(dados, 6, arquivo);
+		if(string == NULL){
+			printf("Erro na leitura.\n");
+		}
+		int num = atoi(dados);
+		nova->passageiros[i].id = num;
+		fseek(arquivo, 1, SEEK_CUR);
+		i++;
+	}
+	// Inseri-los no arquivo fila.txt
+	
+	// Remove-los no arquivo informacoes.txt
+	fclose(arquivo);
+}
+
+void atribuiDoentes(FILE *arquivo, FILE *arquivo2, struct nave *nova){
+	int i = 0;
+	char doentes[] = "Doentes: ";
+	char linha[1000];
+	int posicao;
+	char dados[1];
+	
+	arquivo = fopen("informacoes.txt", "r");
+	if(arquivo == NULL) {
+		printf("Ocorreu erro na abertura do arquivo.");
+	}
+	
+	// Selecionar os dados para inserir na struct
+	char *result;
+	while(fgets(linha, sizeof(linha), arquivo) != NULL){
+		result = strstr(linha, doentes);
+		if(result != NULL){
+			posicao = result - linha;
+		}
+	}
+	
+	fseek(arquivo, posicao+9, SEEK_SET);
+	while(i < MAX_P){
+		char *string = fgets(dados, 3, arquivo);
+		if(string == NULL){
+			printf("Erro na leitura.\n");
+		}
+		int num = atoi(dados);
+		nova->passageiros[i].doente = num;
+		fseek(arquivo, 1, SEEK_CUR);
+		i++;
+	}
+	// Inseri-los no arquivo fila.txt
+	
+	// Remove-los no arquivo informacoes.txt
+	fclose(arquivo);
 }
 
 int main(){
 	setlocale(LC_ALL, "Portuguese");
 	
 	struct nave nave1;
-//	struct fila filaDeNaves;
-	
+	struct fila filaDeNaves;
 	
 	// Abre o arquivo com as informações dos passageiros
-	FILE *arquivo = fopen("informacoes.txt", "r");
-	if (arquivo == NULL) {
-		printf("Ocorreu erro na abertura do arquivo.");
-		return -1;
-	}
+	FILE *arquivo;
+	FILE *arquivo2;
 	
-	FILE *fila = fopen("fila.txt", "w");
-	if(fila == NULL){
-		printf("Erro na criação do arquivo da fila");
-	}
-	
-	atribuiNomes(arquivo, fila, &nave1);
-	//atribuiPlanetas(arquivo, &nave1);
+	atribuiNomes(arquivo, arquivo2, &nave1);
+	atribuiPlanetas(arquivo, arquivo2, &nave1);
+	atribuiIdades(arquivo, arquivo2, &nave1);
+	atribuiIds(arquivo, arquivo2, &nave1);
+	atribuiDoentes(arquivo, arquivo2, &nave1);
 	
 	int i;
 	for(i = 0; i < 5; i++){
-		printf("%s \n", nave1.passageiros[i].nome);
+		printf("Nome %s Planeta %s Idade %d Id %d Donete %d\n", nave1.passageiros[i].nome, nave1.passageiros[i].planeta, nave1.passageiros[i].idade, 
+		nave1.passageiros[i].id, nave1.passageiros[i].doente);
 	}
-	
-	fclose(arquivo);
-	fclose(fila);
 	
     return 0;
 }

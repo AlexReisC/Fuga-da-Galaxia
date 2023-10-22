@@ -24,9 +24,11 @@ struct recurso{
     char r3[20];
 };
 
-typedef struct fila Fila;
+struct fila{
+	int qtd;
+	struct nave naves[MAX];
+};
 
-Fila* criar();
 int inserir(struct nave, int x);
 void subir(int i, int x);
 void descer(int i, int x);

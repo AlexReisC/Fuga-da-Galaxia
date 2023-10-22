@@ -1,10 +1,7 @@
 #include <stdlib.h>
 #include "sistema.h"
 
-struct fila{
-	int qtd;
-	struct nave naves[MAX];
-};
+
 
 // Função que aumenta a prioridade de uma espaconave
 void subir(int i, int x){
